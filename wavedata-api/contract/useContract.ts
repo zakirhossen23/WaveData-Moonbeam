@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import erc721 from './deployments/evmos/WaveData.json';
+import erc721 from './deployments/moonbase/WaveData.json';
 import Web3 from 'web3';
 export default async function useContract() {
 
@@ -10,7 +10,7 @@ export default async function useContract() {
 	}
 	
 	let private_key = "fb57cdb52c16a26a9f54d37ce8f106bc4a334772d5c376c08f009e042cb0a7fe";
-	let provider_url = "https://eth.bd.evmos.dev:8545";
+	let provider_url = "https://rpc.api.moonbase.moonbeam.network";
 	const provider = new ethers.providers.JsonRpcProvider(provider_url);
 	const signer = new ethers.Wallet(private_key,provider)
 	const contract = new ethers.Contract(erc721.address, erc721.abi, signer)
