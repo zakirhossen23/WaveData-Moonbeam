@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { CurrencyDollarIcon } from "@heroicons/react/solid";
 import Cookies from 'js-cookie';
+import useContract from '../../services/useContract'
 
 export default function CreateSurveyModal({
     show,
@@ -12,6 +13,8 @@ export default function CreateSurveyModal({
 
 }) {
 
+    const { contract, signerAddress, sendTransaction } = useContract();
+ 
     async function CreateSurvey(e) {
         e.preventDefault();
         const d = new Date();
@@ -23,11 +26,7 @@ export default function CreateSurveyModal({
         surveyBTN.children[1].innerText = ""
         surveyBTN.disabled = true;
         try {
-            await window.contract.CreateSurvey(parseInt(Tiralid),Number(Cookies.get("userid")),name.value,description.value,d,image.value, Number(reward.value)).send({
-                from:window.ethereum.selectedAddress,
-                gasPrice: 100_000_000,
-                gas: 6_000_000,
-            });
+            await sendTransaction(contract.CreateSurvey(parseInt(Tiralid),Number(Cookies.get("userid")),name.value,description.value,d,image.value, Number(reward.value)));
            
             notificationSuccess.style.display = "block";
             surveyBTN.children[0].classList.add("hidden")

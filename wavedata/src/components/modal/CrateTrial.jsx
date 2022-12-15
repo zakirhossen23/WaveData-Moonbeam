@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { CurrencyDollarIcon } from "@heroicons/react/solid";
 import Cookies from 'js-cookie'
+import useContract from '../../services/useContract'
 
 export default function CreateTrialModal({
     show,
@@ -12,6 +13,9 @@ export default function CreateTrialModal({
 }) {
 
     
+
+    const { contract, signerAddress, sendTransaction } = useContract();
+ 
 
     async function CreateTrial(e) {
         e.preventDefault();
@@ -27,11 +31,7 @@ export default function CreateTrialModal({
             let cTime = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
             let dateTime = cDate + ' ' + cTime;
 
-            await window.contract.CreateTrial(Number(Cookies.get("userid")),image.value,title.value,description.value, 0,0,parseInt(budget.value),dateTime).send({
-                from:window.ethereum.selectedAddress,
-                gasPrice: 100_000_000,
-                gas: 6_000_000,
-            });
+            await sendTransaction(contract.CreateTrial(Number(Cookies.get("userid")),image.value,title.value,description.value, 0,0,parseInt(budget.value),dateTime));
            
             notificationSuccess.style.display = "block";
             createBTN.children[0].classList.add("hidden")

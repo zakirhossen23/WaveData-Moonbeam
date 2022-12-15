@@ -14,7 +14,7 @@ function Trials() {
    const addTrial = () => {
       setModalShow(true);
    };
-   const { contract, signerAddress } = useContract();
+   const { contract, signerAddress,sendTransaction } = useContract();
    const [screenSize, getDimension] = useState({
       dynamicWidth: window.innerWidth,
       dynamicHeight: window.innerHeight
@@ -102,8 +102,8 @@ function Trials() {
                         <div className="flex items-center ml-6">
                            <CurrencyDollarIcon className="w-5 h-5 text-gray-500" />
                            {(screenSize.dynamicWidth > 760) ? (<>
-                           <p className="text-gray-500 font-semibold ml-1">{`Budget of TEVMOS ${budget}`}</p></>) :
-                     (<><p className="text-gray-500 font-semibold ml-1">{`TEVMOS ${budget}`}</p></>)}
+                           <p className="text-gray-500 font-semibold ml-1">{`Budget of DEV ${budget}`}</p></>) :
+                     (<><p className="text-gray-500 font-semibold ml-1">{`DEV ${budget}`}</p></>)}
                         </div>
                      </div>
                   </div>

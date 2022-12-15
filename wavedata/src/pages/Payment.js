@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import useContract from '../services/useContract'
 function Payment() {
    const [tabIndex, setTabIndex] = useState(0);
-   const { contract, signerAddress } = useContract();
+   const { contract, signerAddress,sendTransaction } = useContract();
    const TABS = [
       {
          id: 'transactions',

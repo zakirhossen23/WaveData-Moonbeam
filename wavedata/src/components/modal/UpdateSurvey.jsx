@@ -3,12 +3,15 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { CurrencyDollarIcon } from "@heroicons/react/solid";
+import useContract from '../../services/useContract'
 
 export default function UpdateTrialModal({
     show,
     onHide,
     id
 }) {
+    const { contract, signerAddress, sendTransaction } = useContract();
+ 
 
     async function UpdateSurvey(e) {
         e.preventDefault();
@@ -19,11 +22,7 @@ export default function UpdateTrialModal({
         updateBTN.children[1].innerText = ""
         updateBTN.disabled = true;
         try {
-            await window.contract.UpdateSurvey(parseInt(id), name.value, description.value, image.value, Number(reward.value)).send({
-                from: window.ethereum.selectedAddress,
-                gasPrice: 100_000_000,
-                gas: 6_000_000,
-            });
+            await (sendTransactioncontract.UpdateSurvey(parseInt(id), name.value, description.value, image.value, Number(reward.value)));
             notificationSuccess.style.display = "block";
             updateBTN.children[0].classList.add("hidden")
             updateBTN.children[1].innerText = "Update Survey"

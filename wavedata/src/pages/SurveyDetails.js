@@ -21,7 +21,7 @@ function SurveyDetails() {
    const [SURVEY_DATA, setSURVEY_DATA] = useState({})
    const [UpdatemodalShow, setModalShow] = useState(false);
    const [status, setstatus] = useState("");
-   const { contract, signerAddress } = useContract();
+   const { contract, signerAddress,sendTransaction } = useContract();
    const [screenSize, getDimension] = useState({
       dynamicWidth: window.innerWidth,
       dynamicHeight: window.innerHeight
@@ -86,11 +86,7 @@ function SurveyDetails() {
       BTN.disabled = true; BTN.classList.remove("hover:bg-white"); BTN.classList.remove("cursor-pointer");
       var categoryname = document.getElementsByName("categoryName")[0]
       var categoryimagelink = document.getElementsByName("imagelink")[0]
-      await contract.CreateSurveyCategory(categoryname.value, categoryimagelink.value).send({
-         from:window.ethereum.selectedAddress,
-         gasPrice: 100_000_000,
-         gas: 6_000_000,
-      });
+      await sendTransaction(contract.CreateSurveyCategory(categoryname.value, categoryimagelink.value));
 
       setdataCategory(prevState => [...prevState, {
          text: categoryname.value,
@@ -184,11 +180,7 @@ function SurveyDetails() {
       SaveBTN.classList.add("bg-gray-400")
       SaveBTN.classList.add("cursor-default")
       SaveBTN.disabled = true;
-      await contract.CreateOrSaveSections(SURVEY_DATA.id, JSON.stringify(sectionsdata)).send({
-         from:window.ethereum.selectedAddress,
-         gasPrice: 100_000_000,
-         gas: 6_000_000,
-      });
+      await sendTransaction(contract.CreateOrSaveSections(SURVEY_DATA.id, JSON.stringify(sectionsdata)));
       SaveBTN.classList.add("hover:bg-gray-600")
       SaveBTN.classList.add("bg-black")
       SaveBTN.classList.remove("bg-gray-400")

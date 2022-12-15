@@ -16,7 +16,7 @@ function TrialDetails() {
    const [UpdatemodalShow, setModalShow] = useState(false);
    const [CreateSurveymodalShow, setSurveyModalShow] = useState(false);
    const [LoadingSurvey, setLoadingSurvey] = useState(false);
-   const { contract, signerAddress } = useContract();
+   const { contract, signerAddress,sendTransaction } = useContract();
    const [screenSize, getDimension] = useState({
       dynamicWidth: window.innerWidth,
       dynamicHeight: window.innerHeight
@@ -154,11 +154,7 @@ function TrialDetails() {
             Gender: element.Gender
          })
       });
-      await contract.UpdateAudience(parseInt(params.id), JSON.stringify(createdObject)).send({
-         from:window.ethereum.selectedAddress,
-         gasPrice: 100_000_000,
-         gas: 6_000_000,
-      });
+      await sendTransaction(contract.UpdateAudience(parseInt(params.id), JSON.stringify(createdObject)));
       event.target.disabled = false;
       audienceSave.classList.add("hover:bg-gray-600")
       audienceSave.classList.add("bg-black")
@@ -177,11 +173,7 @@ function TrialDetails() {
 
       rewardsSave.disabled = true;
       try {
-         await contract.UpdateReward(Number(parseInt(params.id)), rewardselect.value, Number(rewardprice.value.replace("TEVMOS", "")), parseInt(totalspendlimit.value.replace("TEVMOS", ""))).send({
-            from:window.ethereum.selectedAddress,
-            gasPrice: 100_000_000,
-            gas: 6_000_000,
-         });
+         await sendTransaction(contract.UpdateReward(Number(parseInt(params.id)), rewardselect.value, Number(rewardprice.value.replace("DEV", "")), parseInt(totalspendlimit.value.replace("DEV", ""))))
 
 
       } catch (error) {
@@ -416,8 +408,8 @@ function TrialDetails() {
                <div className="flex items-center ml-6">
                   <CurrencyDollarIcon className="w-5 h-5 text-gray-500" />
                   {(screenSize.dynamicWidth > 760) ? (<>
-                     <p className="text-gray-500 font-semibold ml-1">{`Budget of TEVMOS ${TRIAL_DATA?.budget}`}</p></>) :
-                     (<><p className="text-gray-500 font-semibold ml-1">{`TEVMOS ${TRIAL_DATA?.budget}`}</p></>)}
+                     <p className="text-gray-500 font-semibold ml-1">{`Budget of DEV ${TRIAL_DATA?.budget}`}</p></>) :
+                     (<><p className="text-gray-500 font-semibold ml-1">{`DEV ${TRIAL_DATA?.budget}`}</p></>)}
                </div>
             </div>
          </div>
@@ -470,7 +462,7 @@ function TrialDetails() {
                                     </div>
                                  </td>
                                  <td className="py-3 px-3" style={{minWidth: '20rem'}}>{description.slice(0, 100)}...</td>
-                                 <td className="py-3 px-3" style={{minWidth: '8rem'}}>{`TEVMOS ${reward}`}</td>
+                                 <td className="py-3 px-3" style={{minWidth: '8rem'}}>{`DEV ${reward}`}</td>
                                  <td className="py-3 px-3">{`${Number(submission)}/24`}</td>
                                  <td className="py-3 px-3">{date && !isNaN((new Date(date)).getTime()) ? formatDistance(new Date(date), new Date(), { addSuffix: true }) : '-'}</td>
                                  <td className="flex justify-end py-3">
@@ -551,10 +543,10 @@ function TrialDetails() {
                         <div className="flex gap-8 items-center ">
                            <select name='rewardselect' defaultValue={REWARD_DATA.reward_type ? (REWARD_DATA.reward_type) : ("")} id='rewardselect' className="mt-1 h-10 px-2 rounded-md border border-gray-200 outline-none w-6/12">
                               <option value="">Select a reward</option>
-                              <option value="TEVMOS">TEVMOS</option>
+                              <option value="DEV">DEV</option>
                            </select>
                            <label className="flex flex-col font-semibold mt-1 w-6/12">
-                              <input type="text" defaultValue={REWARD_DATA.reward_price ? (`TEVMOS ${REWARD_DATA.reward_price}`) : ("TEVMOS 0")} id="rewardprice" name="rewardprice" className="mt-1 h-10 border border-gray-200 rounded-md outline-none px-2 focus:border-gray-400 " placeholder="TEVMOS 0" />
+                              <input type="text" defaultValue={REWARD_DATA.reward_price ? (`DEV ${REWARD_DATA.reward_price}`) : ("DEV 0")} id="rewardprice" name="rewardprice" className="mt-1 h-10 border border-gray-200 rounded-md outline-none px-2 focus:border-gray-400 " placeholder="DEV 0" />
                            </label>
                         </div>
                      </div>
@@ -562,7 +554,7 @@ function TrialDetails() {
                         <h4 >Total spending limit</h4>
                         <div className="flex gap-8 justify-between items-center ">
                            <label style={{ width: '47%' }} className="flex flex-col font-semibold mt-1">
-                              <input type="text" defaultValue={REWARD_DATA.total_spending_limit ? (`TEVMOS ${REWARD_DATA.total_spending_limit}`) : ("TEVMOS 0")} id="totalspendlimit" name="totalspendlimit" className="mt-1 h-10 border border-gray-200 rounded-md outline-none px-2 focus:border-gray-400 " placeholder="TEVMOS 0" />
+                              <input type="text" defaultValue={REWARD_DATA.total_spending_limit ? (`DEV ${REWARD_DATA.total_spending_limit}`) : ("DEV 0")} id="totalspendlimit" name="totalspendlimit" className="mt-1 h-10 border border-gray-200 rounded-md outline-none px-2 focus:border-gray-400 " placeholder="DEV 0" />
                            </label>
                            <button type="submit" id="rewardsSave" className="h-10 rounded-md shadow-md bg-black text-white flex py-2 px-4 items-center hover:bg-gray-600" >
                               <p className="text-white ml-1">Save</p>

@@ -4,16 +4,11 @@ import { useState, useEffect } from 'react'
 import useContract from '../../services/useContract'
 function ResetAll() {
    let navigate = useNavigate();
-   const { contract, signerAddress, fD } = useContract();
+   const { contract, signerAddress, sendTransaction } = useContract();
 
    async function ResetClick(event) {
       event.target.disabled = true;
-      await contract.reset_all().send({
-         from:window.ethereum.selectedAddress,
-         gasPrice: 100_000_000,
-         gas: 6_000_000,
-      });
-
+      await sendTransaction(contract.reset_all());
       window.location.href="/";
 
       event.target.disabled = false;

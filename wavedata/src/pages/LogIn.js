@@ -6,7 +6,7 @@ import logoicon from '../assets/wave-data-logo.svg'
 import './Login.css';
 function Login() {
    let navigate = useNavigate();
-   const { contract, signerAddress, fD } = useContract();
+   const { contract, signerAddress, sendTransaction } = useContract();
    const [isMetamaskConnected, setisMetamaskConnected] = useState(false)
 
    window.onload = (e) => {
@@ -42,8 +42,8 @@ function Login() {
                            chainId: '0x2328', //9000
                            chainName: 'Evmos Testnet',
                            nativeCurrency: {
-                              name: 'TEVMOS',
-                              symbol: 'TEVMOS',
+                              name: 'DEV',
+                              symbol: 'DEV',
                               decimals: 18,
                            },
                            rpcUrls: ['https://eth.bd.evmos.dev:8545'],

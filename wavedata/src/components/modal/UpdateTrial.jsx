@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { CurrencyDollarIcon } from "@heroicons/react/solid";
 import Cookies from 'js-cookie'
+import useContract from '../../services/useContract'
 
 export default function UpdateTrialModal({
     show,
@@ -11,6 +12,8 @@ export default function UpdateTrialModal({
     id
 }) {
 
+    const { contract, signerAddress, sendTransaction } = useContract();
+ 
     async function UpdateTrial(e) {
         e.preventDefault();
         const { title, description, image, updateBTN, budget  } = e.target;
@@ -21,11 +24,7 @@ export default function UpdateTrialModal({
         updateBTN.disabled = true;
         
         try {
-            await window.contract.UpdateTrial(Number(id),image.value,title.value,description.value, parseInt(budget.value)).send({
-                from:window.ethereum.selectedAddress,
-                gasPrice: 100_000_000,
-                gas: 6_000_000,
-            });
+            await sendTransaction(contract.UpdateTrial(Number(id),image.value,title.value,description.value, parseInt(budget.value)));
             notificationSuccess.style.display = "block";
             updateBTN.children[0].classList.add("hidden")
             updateBTN.children[1].innerText = "Update Trial"

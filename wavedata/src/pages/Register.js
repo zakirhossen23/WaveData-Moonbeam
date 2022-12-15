@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import './Register.css'
 function Register() {
     let navigate = useNavigate();
-    const { contract, signerAddress } = useContract();
+    const { contract, signerAddress,sendTransaction } = useContract();
     const [isMetamaskConnected, setisMetamaskConnected] = useState(false);
 
     function loginLink() {
@@ -38,11 +38,7 @@ function Register() {
         try {
             if (contract !== null) {
                 if (await contract.CheckEmail(emailTXT.value).call() === "False") {
-                    await contract.CreateAccount(FullNameTXT.value, emailTXT.value, passwordTXT.value).send({
-                        from:window.ethereum.selectedAddress,
-                        gasPrice: 100_000_000,
-                        gas: 6_000_000,
-                    });
+                    await sendTransaction(CreateAccount(FullNameTXT.value, emailTXT.value, passwordTXT.value));
                     SuccessNotification.style.display = "block";
                     window.location.href = "/login"
                 } else {
@@ -86,8 +82,8 @@ function Register() {
                            chainId: '0x2328', //9000
                            chainName: 'Evmos Testnet',
                            nativeCurrency: {
-                              name: 'TEVMOS',
-                              symbol: 'TEVMOS',
+                              name: 'DEV',
+                              symbol: 'DEV',
                               decimals: 18,
                            },
                            rpcUrls: ['https://eth.bd.evmos.dev:8545'],
