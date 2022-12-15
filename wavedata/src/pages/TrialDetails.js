@@ -173,7 +173,7 @@ function TrialDetails() {
 
       rewardsSave.disabled = true;
       try {
-         await sendTransaction(contract.UpdateReward(Number(parseInt(params.id)), rewardselect.value, Number(rewardprice.value.replace("DEV", "")), parseInt(totalspendlimit.value.replace("DEV", ""))))
+         await sendTransaction(contract.UpdateReward(Number(parseInt(params.id)), rewardselect.value, Number(rewardprice.value), parseInt(totalspendlimit.value)))
 
 
       } catch (error) {
@@ -206,7 +206,7 @@ function TrialDetails() {
       var storing = [];
       for (let index = 0; index < all.length; index++) {
          const element = all[index];
-         if (index == specific) {
+         if (index === specific) {
             continue
          }
          storing.push(element)
@@ -233,7 +233,10 @@ function TrialDetails() {
             description: trial_element.description,
             contributors: Number(trial_element.contributors),
             audience: Number(allAudiences.length),
-            budget: Number(trial_element.budget)
+            budget: Number(trial_element.budget),
+            reward_type: trial_element.reward_type,
+            reward_price: Number(trial_element.reward_price),
+            total_spending_limit: Number(trial_element.total_spending_limit)
          };
          setTRIAL_DATA(newTrial);
 
@@ -259,7 +262,7 @@ function TrialDetails() {
                      reward: Number(survey_element.reward),
                      submission: Number(survey_element?.submission)
                   };
-                  if (parseInt(params.id) == new_survey.trial_id)
+                  if (parseInt(params.id) === new_survey.trial_id)
                      setData(prevState => [...prevState, new_survey]);
                }
             }catch(ex){
@@ -280,22 +283,6 @@ function TrialDetails() {
          setAudiences(allAudiences);
 
       }
-   }
-   async function LoadRewards() {
-      if (contract !== null) {
-         setREWARD_DATA({})
-
-         let reward_element = await contract._trialRewardMap(parseInt(params.id)).call();
-         var new_reward = {
-            trial_id: Number(reward_element.trial_id),
-            reward_type: reward_element.reward_type,
-            reward_price: Number(reward_element.reward_price),
-            total_spending_limit: Number(reward_element.total_spending_limit)
-         };
-         setREWARD_DATA(new_reward);
-
-      }
-
    }
    async function LoadDataContributors() {
       setContributors([])
@@ -342,14 +329,13 @@ function TrialDetails() {
       window.addEventListener('resize', setDimension);
       LoadData();
       LoadDataSurvey();
-      LoadRewards();
    }, [contract])
 
    useEffect(async () => {
-      if (tabIndex == 0) {
+      if (tabIndex === 0) {
          LoadDataSurvey();
-      } else if (tabIndex == 2) {
-         LoadRewards();
+      } else if (tabIndex === 2) {
+      LoadData();
 
          LoadAudiences();
       } else {
@@ -408,8 +394,8 @@ function TrialDetails() {
                <div className="flex items-center ml-6">
                   <CurrencyDollarIcon className="w-5 h-5 text-gray-500" />
                   {(screenSize.dynamicWidth > 760) ? (<>
-                     <p className="text-gray-500 font-semibold ml-1">{`Budget of DEV ${TRIAL_DATA?.budget}`}</p></>) :
-                     (<><p className="text-gray-500 font-semibold ml-1">{`DEV ${TRIAL_DATA?.budget}`}</p></>)}
+                     <p className="text-gray-500 font-semibold ml-1">{`Budget of ${TRIAL_DATA?.budget} ${TRIAL_DATA?.reward_type}`}</p></>) :
+                     (<><p className="text-gray-500 font-semibold ml-1">{`${TRIAL_DATA?.budget} ${TRIAL_DATA?.reward_type}`}</p></>)}
                </div>
             </div>
          </div>
@@ -462,7 +448,7 @@ function TrialDetails() {
                                     </div>
                                  </td>
                                  <td className="py-3 px-3" style={{minWidth: '20rem'}}>{description.slice(0, 100)}...</td>
-                                 <td className="py-3 px-3" style={{minWidth: '8rem'}}>{`DEV ${reward}`}</td>
+                                 <td className="py-3 px-3" style={{minWidth: '8rem'}}>{`${reward} ${TRIAL_DATA?.reward_type}`}</td>
                                  <td className="py-3 px-3">{`${Number(submission)}/24`}</td>
                                  <td className="py-3 px-3">{date && !isNaN((new Date(date)).getTime()) ? formatDistance(new Date(date), new Date(), { addSuffix: true }) : '-'}</td>
                                  <td className="flex justify-end py-3">
@@ -473,7 +459,7 @@ function TrialDetails() {
                               </tr>
                            );
                         })}
-                     </>) :(screenSize.dynamicWidth > 760 )?((LoadingSurvey == true )? (
+                     </>) :(screenSize.dynamicWidth > 760 )?((LoadingSurvey === true )? (
                         <tr>
                            <td colSpan={6}>
                               <p className="alert alert-info font-semibold text-3xl text-center">Loading...</p>
@@ -483,7 +469,7 @@ function TrialDetails() {
                      }
                   </tbody>
                </table>
-               {(screenSize.dynamicWidth < 760 && data.length === 0 )?(LoadingSurvey == true) ? (
+               {(screenSize.dynamicWidth < 760 && data.length === 0 )?(LoadingSurvey === true) ? (
                   <p className="alert-info font-semibold text-center">Loading...</p>
                ) : (<p className="alert-info font-semibold text-center">No Surveys</p>):(<></>)
                }
@@ -541,12 +527,15 @@ function TrialDetails() {
                      <div>
                         <h4 >Reward per survey</h4>
                         <div className="flex gap-8 items-center ">
-                           <select name='rewardselect' defaultValue={REWARD_DATA.reward_type ? (REWARD_DATA.reward_type) : ("")} id='rewardselect' className="mt-1 h-10 px-2 rounded-md border border-gray-200 outline-none w-6/12">
+                           <select name='rewardselect' defaultValue={TRIAL_DATA?.reward_type ? (TRIAL_DATA?.reward_type) : ("")} id='rewardselect' className="mt-1 h-10 px-2 rounded-md border border-gray-200 outline-none w-6/12">
                               <option value="">Select a reward</option>
                               <option value="DEV">DEV</option>
+                              <option value="CELO">CELO</option>
+                              <option value="TBNB">TBNB</option>
+                              <option value="GoerliETH">GoerliETH</option>
                            </select>
                            <label className="flex flex-col font-semibold mt-1 w-6/12">
-                              <input type="text" defaultValue={REWARD_DATA.reward_price ? (`DEV ${REWARD_DATA.reward_price}`) : ("DEV 0")} id="rewardprice" name="rewardprice" className="mt-1 h-10 border border-gray-200 rounded-md outline-none px-2 focus:border-gray-400 " placeholder="DEV 0" />
+                              <input type="text" defaultValue={TRIAL_DATA?.reward_price ? (`${TRIAL_DATA?.reward_price}`) : ("0")} id="rewardprice" name="rewardprice" className="mt-1 h-10 border border-gray-200 rounded-md outline-none px-2 focus:border-gray-400 " placeholder="0" />
                            </label>
                         </div>
                      </div>
@@ -554,7 +543,7 @@ function TrialDetails() {
                         <h4 >Total spending limit</h4>
                         <div className="flex gap-8 justify-between items-center ">
                            <label style={{ width: '47%' }} className="flex flex-col font-semibold mt-1">
-                              <input type="text" defaultValue={REWARD_DATA.total_spending_limit ? (`DEV ${REWARD_DATA.total_spending_limit}`) : ("DEV 0")} id="totalspendlimit" name="totalspendlimit" className="mt-1 h-10 border border-gray-200 rounded-md outline-none px-2 focus:border-gray-400 " placeholder="DEV 0" />
+                              <input type="text" defaultValue={TRIAL_DATA?.total_spending_limit ? (`${TRIAL_DATA?.total_spending_limit}`) : ("0")} id="totalspendlimit" name="totalspendlimit" className="mt-1 h-10 border border-gray-200 rounded-md outline-none px-2 focus:border-gray-400 " placeholder="0" />
                            </label>
                            <button type="submit" id="rewardsSave" className="h-10 rounded-md shadow-md bg-black text-white flex py-2 px-4 items-center hover:bg-gray-600" >
                               <p className="text-white ml-1">Save</p>

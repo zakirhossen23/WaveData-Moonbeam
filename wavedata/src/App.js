@@ -79,7 +79,7 @@ export default function App() {
 
   function RequireAuth({ children }) {
     let location = useLocation();
-    if (Cookies.get("login") == "true"){
+    if (Cookies.get("login") === "true"){
       return children;
     }
     return <Navigate to="/login" state={{ from: location }} replace />;

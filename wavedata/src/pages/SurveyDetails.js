@@ -416,7 +416,7 @@ function SurveyDetails() {
       var storing = [];
       for (let index = 0; index < all.length; index++) {
          const element = all[index];
-         if (index == specificid) {
+         if (index === specificid) {
             continue
          }
          storing.push(element)
@@ -431,7 +431,7 @@ function SurveyDetails() {
       var storing = [];
       for (let index = 0; index < all.length; index++) {
          const element = all[index];
-         if (element.id == specificid) {
+         if (element.id === specificid) {
             continue
          }
          storing.push(element)
@@ -446,7 +446,7 @@ function SurveyDetails() {
       if (type === "section") {
          for (let index = 0; index < sectionsdata.length; index++) {
             const element = sectionsdata[index];
-            if (element.id == specificid) {
+            if (element.id === specificid) {
                continue
             }
             storing.push(element)
@@ -462,7 +462,7 @@ function SurveyDetails() {
          */
          for (let index = 0; index < sectionsdata[args.indexSect].questions.length; index++) {
             const element = sectionsdata[args.indexSect].questions[index];
-            if (index == specificid) {
+            if (index === specificid) {
                continue
             }
             storing.push(element)
@@ -479,7 +479,7 @@ function SurveyDetails() {
          */
          for (let index = 0; index < sectionsdata[args.indexSect].questions[args.indexQuestion].limited.length; index++) {
             const element = sectionsdata[args.indexSect].questions[args.indexQuestion].limited[index];
-            if (index == specificid) {
+            if (index === specificid) {
                continue
             }
             storing.push(element)
@@ -497,7 +497,7 @@ function SurveyDetails() {
       if (type === "section") {
          for (let index = 0; index < sectionsdata.length; index++) {
             const element = sectionsdata[index];
-            if (element.id == specificid) {
+            if (element.id === specificid) {
                storing.push(element);
                found = 1;
             }
@@ -517,7 +517,7 @@ function SurveyDetails() {
          */
          for (let index = 0; index < sectionsdata[args.indexSect].questions.length; index++) {
             let element = sectionsdata[args.indexSect].questions[index];
-            if (index == specificid) {
+            if (index === specificid) {
                storing.push(element)
                found = 1;
             }
@@ -539,7 +539,7 @@ function SurveyDetails() {
          */
          for (let index = 0; index < sectionsdata[args.indexSect].questions[args.indexQuestion].limited.length; index++) {
             const element = sectionsdata[args.indexSect].questions[args.indexQuestion].limited[index];
-            if (index == specificid) {
+            if (index === specificid) {
                storing.push(element)
                found = 1;
             }    
@@ -640,8 +640,8 @@ function SurveyDetails() {
          //                var allusers = [];
          //                var usercount = 0;
          //                alldata.forEach(element => {
-         //                   if (element['answer'] == answer) {
-         //                      var userdata = allusersData.filter(e => e.userid == element['userid'])[0];
+         //                   if (element['answer'] === answer) {
+         //                      var userdata = allusersData.filter(e => e.userid === element['userid'])[0];
          //                      allusers.push({
          //                         "children": [],
          //                         "email": userdata['email'],
@@ -873,7 +873,7 @@ function SurveyDetails() {
                                  options={dataCategory}
                                  isSearchable={true}
                                  defaultValue={e => {
-                                    return dataCategory.filter(element => element['value'] == sectionsdata[index].category)[0];
+                                    return dataCategory.filter(element => element['value'] === sectionsdata[index].category)[0];
                                  }
                                  }
                                  getOptionLabel={e => (
@@ -956,7 +956,7 @@ function SurveyDetails() {
                               <p className="text-2xl font-semibold flex-1">{`Section ${sectindex + 1}: ${item.category}`}</p>
                            </div>
                         </div>
-                        {sectionsQuestionsdata.filter(eq => eq.sectionid == item.id).map((item, index) => {
+                        {sectionsQuestionsdata.filter(eq => eq.sectionid === item.id).map((item, index) => {
                            return (
                               <div className="border-b border-b-gray-400 p-4">
                                  <p className="text-xl font-semibold">{`Question ${index + 1}: ${item.question}`}</p>

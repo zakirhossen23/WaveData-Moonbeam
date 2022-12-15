@@ -22,7 +22,7 @@ export default function UpdateTrialModal({
         updateBTN.children[1].innerText = ""
         updateBTN.disabled = true;
         try {
-            await (sendTransactioncontract.UpdateSurvey(parseInt(id), name.value, description.value, image.value, Number(reward.value)));
+            await (sendTransaction(contract.UpdateSurvey(parseInt(id), name.value, description.value, image.value, Number(reward.value))));
             notificationSuccess.style.display = "block";
             updateBTN.children[0].classList.add("hidden")
             updateBTN.children[1].innerText = "Update Survey"

@@ -21,7 +21,7 @@ export default function useContract() {
 				const signer = provider.getSigner();
 				const contract = {contract: null, signerAddress: null, sendTransaction: sendTransaction, currentChain: null};
 
-				contract.contract = ERC721Singleton(signer);
+				contract.contract = await ERC721Singleton(signer);
 
 				contract.signerAddress = await signer.getAddress();
 				window.contract = contract.contract;

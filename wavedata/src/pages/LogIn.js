@@ -11,7 +11,7 @@ function Login() {
 
    window.onload = (e) => {
 
-      if (Cookies.get("login") == "true") {
+      if (Cookies.get("login") === "true") {
          navigate("/trials", { replace: true });
       }
    };
@@ -24,39 +24,38 @@ function Login() {
 
    async function onClickConnect(type) {
       if (type === 1) {
-          await window.ethereum.request({ method: 'eth_requestAccounts' });
-        
-         try {
-             await window.ethereum.request({
-               method: 'wallet_switchEthereumChain',
-               params: [{ chainId: '0x2328', }], //9000
-            });
-         } catch (switchError) {
-            // This error code indicates that the chain has not been added to MetaMask.
-            if (switchError.code === 4902) {
-               try {
-                  await window.ethereum.request({
-                     method: 'wallet_addEthereumChain',
-                     params: [
+        await window.ethereum.request({ method: 'eth_requestAccounts' });
+    try {
+        await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x507', }], //1287
+        });
+    } catch (switchError) {
+        // This error code indicates that the chain has not been added to MetaMask.
+        if (switchError.code === 4902) {
+            try {
+                await window.ethereum.request({
+                    method: 'wallet_addEthereumChain',
+                    params: [
                         {
-                           chainId: '0x2328', //9000
-                           chainName: 'Evmos Testnet',
-                           nativeCurrency: {
-                              name: 'DEV',
-                              symbol: 'DEV',
-                              decimals: 18,
-                           },
-                           rpcUrls: ['https://eth.bd.evmos.dev:8545'],
+                            chainId: '0x507', //1287
+                            chainName: 'Moonbeam Alpha',
+                            nativeCurrency: {
+                                name: 'DEV',
+                                symbol: 'DEV',
+                                decimals: 18,
+                            },
+                            rpcUrls: ['https://rpc.api.moonbase.moonbeam.network'],
                         },
-                     ],
-                  });
-               } catch (addError) {
-                  // handle "add" error
-                  console.log(addError);
-               }
+                    ],
+                });
+            } catch (addError) {
+                // handle "add" error
+                console.log(addError);
             }
-            // handle other "switch" errors
-         }
+        }
+        // handle other "switch" errors
+    }
 
          if (window.ethereum.selectedAddress != null) {
             setisMetamaskConnected(true);
@@ -68,7 +67,6 @@ function Login() {
          }
       } else {
          window.localStorage.setItem("type", "non-metamask")
-         await fD();
          setisMetamaskConnected(true);
       }
    }
@@ -86,7 +84,7 @@ function Login() {
 
       var emailTXT = document.getElementById("email")
       var passwordTXT = document.getElementById("password")
-      if (emailTXT.value == "" || passwordTXT.value == "") {
+      if (emailTXT.value === "" || passwordTXT.value === "") {
          FailedNotification.innerText = "Email and Password must be filled!"
          FailedNotification.style.display = "block";
          buttonTextBox.style.display = "block";
