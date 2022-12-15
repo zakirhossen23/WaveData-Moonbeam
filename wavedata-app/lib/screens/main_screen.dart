@@ -61,7 +61,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
   Future<void> GetAvialbleData() async {
     avilableTrials = [];
     var url = Uri.parse(
-        'https://wave-data-evmos-api.onrender.com/api/GET/Trial/GetAvailableTrial?userid=${userid}');
+        'https://wave-data-moonbeam-api.onrender.com/api/GET/Trial/GetAvailableTrial?userid=${userid}');
     final response = await http.get(url);
     var responseData = json.decode(response.body);
 
@@ -89,7 +89,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     };
     dummyActions = [];
     var url = Uri.parse(
-        'https://wave-data-evmos-api.onrender.com/api/GET/Trial/GetOngoingTrial?userid=${userid}');
+        'https://wave-data-moonbeam-api.onrender.com/api/GET/Trial/GetOngoingTrial?userid=${userid}');
     final response = await http.get(url);
     var responseData = json.decode(response.body);
 
@@ -149,7 +149,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
 
   Future<void> GetFHIRData(int userid) async {
     var url = Uri.parse(
-        'https://wave-data-evmos-api.onrender.com/api/GET/getUserDetails?userid=${userid}');
+        'https://wave-data-moonbeam-api.onrender.com/api/GET/getUserDetails?userid=${userid}');
     final response = await http.get(url);
     var responseData = json.decode(response.body);
 
@@ -162,7 +162,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
     });
 
     var urlFH = Uri.parse(
-        'https://wave-data-evmos-api.onrender.com/api/GET/getFhir?userid=${int.parse(userid.toString())}');
+        'https://wave-data-moonbeam-api.onrender.com/api/GET/getFhir?userid=${int.parse(userid.toString())}');
     final responseFH = await http.get(urlFH);
     var responseDataFH = json.decode(responseFH.body);
 
@@ -292,7 +292,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
       int userid = int.parse(prefs.getString("userid").toString());
 
       var url = Uri.parse(
-          'https://wave-data-evmos-api.onrender.com/api/POST/Trial/CreateOngoingTrail');
+          'https://wave-data-moonbeam-api.onrender.com/api/POST/Trial/CreateOngoingTrail');
       await http.post(url,
           headers: POSTheader,
           body: {'trialid': trialid.toString(), 'userid': userid.toString()});
@@ -321,7 +321,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
       final prefs = await SharedPreferences.getInstance();
       int userid = int.parse(prefs.getString("userid").toString());
       var url = Uri.parse(
-          'https://wave-data-evmos-api.onrender.com/api/POST/UpadateImage');
+          'https://wave-data-moonbeam-api.onrender.com/api/POST/UpadateImage');
       await http.post(url, headers: POSTheader, body: {
         'userid': userid.toString(),
         'image': _textFieldController.text
@@ -1248,7 +1248,6 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                                                       fontWeight:
                                                           FontWeight.w700)),
                                               Text(
-                                                  "TEVMOS " +
                                                       userDetails['credits']
                                                           .toString(),
                                                   style: GoogleFonts.getFont(
@@ -1372,7 +1371,6 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                                                                         .w700),
                                                       ),
                                                       Text(
-                                                          "TEVMOS " +
                                                               ((userDetails['ongoingcredit'] !=
                                                                           null)
                                                                       ? userDetails[
@@ -1384,7 +1382,7 @@ class _MainScreenState extends ConsumerState<MainScreen> {
                                                                   'Lexend Deca',
                                                                   color: Color(
                                                                       0xFFF06129),
-                                                                  fontSize: 13,
+                                                                  fontSize: 20,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w700))

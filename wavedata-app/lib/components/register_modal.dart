@@ -26,11 +26,11 @@ class RegisterApp extends State<RegisterModal> {
   };
 
   Future<void> RegisterAccount() async {
-    var url = Uri.parse('https://wave-data-evmos-api.onrender.com/api/GET/checkEmail?email=${Uri.encodeComponent(emailTXT.text)}');
+    var url = Uri.parse('https://wave-data-moonbeam-api.onrender.com/api/GET/checkEmail?email=${Uri.encodeComponent(emailTXT.text)}');
     final response = await http.get(url);
     var responseData = json.decode(response.body);
     if (responseData['value'] == "False") {
-      var urlReg = Uri.parse('https://wave-data-evmos-api.onrender.com/api/POST/Register');
+      var urlReg = Uri.parse('https://wave-data-moonbeam-api.onrender.com/api/POST/Register');
        await http.post(urlReg,  headers: POSTheader, body: {'fullname':fullnameTXT.text,'email':emailTXT.text, 'password':passwordTXT.text});
     
       Navigator.pop(context);

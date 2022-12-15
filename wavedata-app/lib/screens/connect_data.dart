@@ -18,6 +18,7 @@ class ConnectDataApp extends State<ConnectDataScreen> {
   TextEditingController GivenNameTXT = new TextEditingController();
   TextEditingController IdentifierTXT = new TextEditingController();
   TextEditingController FHIRIDTXT = new TextEditingController();
+  TextEditingController PrivateKeyTXT = new TextEditingController();
 
   bool isLoading = false;
   var POSTheader = {
@@ -36,7 +37,7 @@ class ConnectDataApp extends State<ConnectDataScreen> {
     final prefs = await SharedPreferences.getInstance();
     var userid = prefs.getString("userid");
     var url = Uri.parse(
-        'https://wave-data-evmos-api.onrender.com/api/POST/UpadateFhir');
+        'https://wave-data-moonbeam-api.onrender.com/api/POST/UpadateFhir');
     final response = await http.post(url, headers: POSTheader, body: {
       'userid': userid,
       'givenname': GivenNameTXT.text,
@@ -63,7 +64,7 @@ class ConnectDataApp extends State<ConnectDataScreen> {
   Future<void> GetData() async {
     final prefs = await SharedPreferences.getInstance();
     var userid = prefs.getString("userid");
-   var url = Uri.parse('https://wave-data-evmos-api.onrender.com/api/GET/getFhir?userid=${int.parse(userid.toString())}');
+   var url = Uri.parse('https://wave-data-moonbeam-api.onrender.com/api/GET/getFhir?userid=${int.parse(userid.toString())}');
    
     final response = await http.get(url);
     var responseData = json.decode(response.body);
@@ -125,6 +126,10 @@ class ConnectDataApp extends State<ConnectDataScreen> {
                 margin: const EdgeInsets.only(left: 24, right: 24),
                 child: DataEditItem(
                     label: "FIHR Patient ID", controller: FHIRIDTXT),
+              ), Container(
+                margin: const EdgeInsets.only(left: 24, right: 24),
+                child: DataEditItem(
+                    label: "Private key", controller: PrivateKeyTXT),
               ),
               Container(
                 margin: const EdgeInsets.only(left: 12, right: 24),
