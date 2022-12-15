@@ -1,0 +1,103 @@
+Steve Thijssen
+steve.thijssen@gmail.com
+
+
+FHIR
+wavedata
+April14202233%
+
+
+Trial:
+1. Female Veteran Heart Failure - Stress data
+Gerber and her team studied the data of 157,000 women Veterans over the age of 45 to examine the relationship between coronary artery disease and the presence of one or more mental health conditions.
+
+
+https://i.postimg.cc/hGRz8wwj/veteran.png
+
+
+Survey:
+1.Survey F36 & Measurements
+The Medical Outcomes Study (MOS) was a 2-year observational study of patients with chronic conditions, conducted in a cross-sectional phase among 22,462 patients and in a longitudinal phase among 2349 patients (Tarlov et al. 1989). One of its two main purposes was to analyze how outcomes vary depending on factors such as the type of delivery system in which a patient receives care, clinician specialty training, and intensity of resource use. Another main purpose was to develop practical tools for monitoring patient outcomes and their determinants. 
+
+https://i.postimg.cc/VNZz7rrj/Rectangle-3-1.png
+
+
+Category:
+General Health - https://i.postimg.cc/RhWyzZYQ/general-health.png
+Limitations of Activities - https://i.postimg.cc/9QHvW3vj/image.png
+Physical Health Problems - https://i.postimg.cc/QdM5vvVX/image.png
+Emotional Health Problems - https://i.postimg.cc/zG8Txn9z/mental-3.png
+Social Activities - https://i.postimg.cc/rFz9x6JB/Png-Item-3542923.png
+Pain - https://i.postimg.cc/sfKZ5SYB/image.png
+
+
+Question:
+Section 1 (Rate 5):
+1. In general, would you say your health is:
+2. Compared to one year ago, how would you rate your health in general now?
+
+
+Section 2 (Rate 3):
+LIMITATIONS OF ACTIVITIES 
+
+The following items are about activities you might do during a typical day. Does your health now limit you in these activities? If so, how much?
+
+1. Vigorous activites, such as running, lifting heavy objects, participating in strenuous sports
+2. Moderate activities, such as moving a table, pushing a vacuum cleaner, bowling, or playing golf
+3. Lifting or carrying groceries
+4. Climbing several fights of stairs
+5. Bending, kneeling or stooping
+6. Walking more than a mile
+7. Walking several blocks
+8. Walking one block
+9. Dressing yourself 
+
+
+Section 3 (Yes/No)
+PHYSICAL HEALTH PROBLEMS
+
+During the past 4 weeks, have you had any of the following problems with your work or other regular daily activities as a result of your physical health?
+
+1. Cut down the amount of time you spent on work or other activities
+2. Accomplished less than you would like
+3. Were limited in the kind of work or other activities
+4. Had difficulty performing the work or other activities (for example, it took extra effort)
+
+Section 4 (Yes/No)
+EMOTIONAL HEALTH PROBLEMS 
+During the past 4 weeks, have you had any of the following problems with your work or other regular daily activities as a result of any emotional problems (such as feeling depressed or anxious)?
+
+1. Cut down the amount of time you spent on work or other activities
+2. Accomplished less than you would like
+3. Didn't do work or other activities as carfully as usual
+
+
+Section 5 (Rating 5)
+SOCIAL ACTIVITIES
+
+1. Emotional problems interfered with your normal social activities with family, friends, neighbors or groups?
+
+
+Section 6 (Rating 5)
+PAIN
+1. How much bodily pain have you had during the past 4 weeks?
+2. During the past 4 weeks, how much did pain intergere with your normal work (including both work outside the home and housework)?
+
+
+
+------Mobile
+Caryan
+
+Caryn49@gmail.com
+
+Caryn49
+999-56-7350
+104064
+
+https://i.postimg.cc/B6N2wWwq/person.png
+
+
+
+
+
+
