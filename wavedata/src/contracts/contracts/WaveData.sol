@@ -51,14 +51,13 @@ contract WaveData {
         uint256 budget;
         /// The Date of the Trial
         string date;
-         /// The Type of the Reward.
+        /// The Type of the Reward.
         string reward_type;
         /// The Price of the Reward.
         uint256 reward_price;
         /// The Total Spending Limit of the Trial.
         uint256 total_spending_limit;
     }
-
 
     /// Survey Struct contains all the survey information
     struct survey_struct {
@@ -339,12 +338,20 @@ contract WaveData {
             string memory
         )
     {
+        string memory privatekey = "";
+        if (
+            keccak256(bytes(_userMap[user_id].privatekey)) !=
+            keccak256(bytes(""))
+        ) {
+            privatekey = substring(_userMap[user_id].privatekey, 0, 10);
+        }
+
         return (
             _userMap[user_id].image,
             _userMap[user_id].credits,
             _userMap[user_id].name,
             _userMap[user_id].email,
-            substring(_userMap[user_id].privatekey,0,10)
+            privatekey
         );
     }
 
@@ -555,7 +562,11 @@ contract WaveData {
         _CompletedSurveyIds = 0;
     }
 
-    function substring(string memory str,uint256 startIndex,uint256 endIndex) private pure returns (string memory) {
+    function substring(
+        string memory str,
+        uint256 startIndex,
+        uint256 endIndex
+    ) private pure returns (string memory) {
         bytes memory strBytes = bytes(str);
         bytes memory result = new bytes(endIndex - startIndex);
         for (uint256 i = startIndex; i < endIndex; i++) {

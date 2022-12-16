@@ -1,4 +1,4 @@
-
+import {ethers} from 'ethers'
 export default async function handler(req, res) {
   try {
     let FixCors = await import("../../../contract/fixCors.js");
@@ -16,11 +16,14 @@ export default async function handler(req, res) {
   }
 
   const { fullname, email, password } = req.body;
-  if (await contract.CheckEmail(email) !== "False"){
+  if (await contract.CheckEmail(email).call() !== "False"){
     res.status(403).json({ status: 403, error: "Account already exists!" })
     return;
   }
-  await contract.CreateAccount(fullname, email, password);
+  await contract.CreateAccount(fullname, email, password).send({
+    gasLimit: 6000000,
+    gasPrice: ethers.utils.parseUnits('9.0', 'gwei')
+  });
   res.status(200).json({ status: 200, value: "Registered!" })
 
 }

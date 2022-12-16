@@ -8,9 +8,9 @@ export default async function handler(req, res) {
   let useContract = await import("../../../../contract/useContract.ts");
   let { contract, signerAddress } = await useContract.default();
 
-  let trial_id = await contract.GetOngoingTrial(req.query.userid);
+  let trial_id = await contract.GetOngoingTrial(req.query.userid).call();
   if (trial_id !== "False") {
-    let trial_element = await contract._trialMap(Number(trial_id));
+    let trial_element = await contract._trialMap(Number(trial_id)).call();
     var newTrial = {
       id: Number(trial_element.trial_id),
       title: trial_element.title,
@@ -20,10 +20,10 @@ export default async function handler(req, res) {
       audience: Number(trial_element.audience),
       budget: Number(trial_element.budget)
     };
-    let all_surveys = await contract.getAllSurveysIDByTrial(Number(trial_id));
+    let all_surveys = await contract.getAllSurveysIDByTrial(Number(trial_id)).call();
     let all_trail_surveys = [];
     for (let i = 0; i < all_surveys.length; i++) {
-      let survey_element = await contract._surveyMap(all_surveys[i]);
+      let survey_element = await contract._surveyMap(all_surveys[i]).call();
 
       var new_survey = {
         id: Number(survey_element.survey_id),
@@ -39,11 +39,11 @@ export default async function handler(req, res) {
       all_trail_surveys.push(new_survey);
     }
 
-    let all_completed_surveys = await contract.getAllCompletedSurveysIDByUser(Number(req.query.userid));
+    let all_completed_surveys = await contract.getAllCompletedSurveysIDByUser(Number(req.query.userid)).call();
     let all_trail_completed_surveys = [];
 
     for (let i = 0; i < all_completed_surveys.length; i++) {
-      let completed_survey_element = await contract._completedsurveyMap(all_completed_surveys[i]);
+      let completed_survey_element = await contract._completedsurveyMap(all_completed_surveys[i]).call();
 
       var new_completed_survey = {
         id: Number(completed_survey_element.completed_survey_id),

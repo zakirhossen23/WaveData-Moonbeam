@@ -17,20 +17,20 @@ export default async function handler(req, res) {
 
   const { surveyid, userid, date, trialid } = req.body;
 
-  let survey_element = await contract._surveyMap(surveyid);
+  let survey_element = await contract._surveyMap(surveyid).call();
 
-  let details_element = await contract.getUserDetails(Number(userid));
+  let details_element = await contract.getUserDetails(Number(userid)).call();
   
   let credits = Number(details_element[1]) + Number(survey_element.reward)
 
-  await contract.UpdateUser(Number(userid), details_element[0], Number(credits)) ,{
+  await contract.UpdateUser(Number(userid), details_element[0], Number(credits)).send({
     gasLimit: 6000000,
-    gasPrice: ethers.utils.parseUnits('9.0', 'gwei'),
-  };
+    gasPrice: ethers.utils.parseUnits('9.0', 'gwei')
+  });
 
-  await contract.CreateCompletedSurveys(Number(surveyid), Number(userid), date, Number(trialid) ,{
+  await contract.CreateCompletedSurveys(Number(surveyid), Number(userid), date, Number(trialid)).send({
     gasLimit: 6000000,
-    gasPrice: ethers.utils.parseUnits('9.0', 'gwei'),
+    gasPrice: ethers.utils.parseUnits('9.0', 'gwei')
   });
 
 
