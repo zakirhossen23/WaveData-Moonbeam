@@ -107,8 +107,8 @@ contract WaveData {
         uint256 trial_id;
         uint256 user_id;
         uint256 survey_id;
-        uint256 section_id;
-        uint256 question_id;
+        string section_id;
+        string question_id;
         string answer;
     }
 
@@ -478,8 +478,8 @@ contract WaveData {
         uint256 trial_id,
         uint256 user_id,
         uint256 survey_id,
-        uint256 section_id,
-        uint256 question_id,
+        string memory section_id,
+        string memory question_id,
         string memory answer
     ) public {
         // Store the metadata of Question Answered in the map.
