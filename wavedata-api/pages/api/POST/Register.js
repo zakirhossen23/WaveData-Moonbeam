@@ -21,6 +21,7 @@ export default async function handler(req, res) {
     return;
   }
   await contract.CreateAccount(fullname, email, password).send({
+    from:signerAddress,
     gasLimit: 6000000,
     gasPrice: ethers.utils.parseUnits('9.0', 'gwei')
   });

@@ -17,6 +17,7 @@ export default async function handler(req, res) {
     const { trialid,userid } = req.body;
  
     await contract.CreateOngoingTrail(Number(trialid),Number(userid),(new Date()).toISOString() ).send({
+      from:signerAddress,
       gasLimit: 6000000,
       gasPrice: ethers.utils.parseUnits('9.0', 'gwei')
     });

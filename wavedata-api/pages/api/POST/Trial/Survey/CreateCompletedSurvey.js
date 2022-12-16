@@ -24,11 +24,13 @@ export default async function handler(req, res) {
   let credits = Number(details_element[1]) + Number(survey_element.reward)
 
   await contract.UpdateUser(Number(userid), details_element[0], Number(credits)).send({
+    from:signerAddress,
     gasLimit: 6000000,
     gasPrice: ethers.utils.parseUnits('9.0', 'gwei')
   });
 
   await contract.CreateCompletedSurveys(Number(surveyid), Number(userid), date, Number(trialid)).send({
+    from:signerAddress,
     gasLimit: 6000000,
     gasPrice: ethers.utils.parseUnits('9.0', 'gwei')
   });
