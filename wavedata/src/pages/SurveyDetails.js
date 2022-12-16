@@ -176,7 +176,11 @@ function SurveyDetails() {
 		SaveBTN.classList.add("bg-gray-400");
 		SaveBTN.classList.add("cursor-default");
 		SaveBTN.disabled = true;
-		await sendTransaction(contract.CreateOrSaveSections(SURVEY_DATA.id, JSON.stringify(sectionsdata)));
+      try {
+         await sendTransaction(contract.CreateOrSaveSections(SURVEY_DATA.id, JSON.stringify(sectionsdata)));
+      } catch (error) {
+         
+      }
 		SaveBTN.classList.add("hover:bg-gray-600");
 		SaveBTN.classList.add("bg-black");
 		SaveBTN.classList.remove("bg-gray-400");
@@ -288,15 +292,15 @@ function SurveyDetails() {
 		setstatus("saved!");
 	}
 
-	function RatingAnswer({item, index}) {
+	function RatingAnswer({item, indexItem, index}) {
 		return (
 			<>
-				<div className={`bg-white ${screenSize.dynamicWidth < 800 ? "" : ""}`} style={{width: screenSize.dynamicWidth < 800 ? "100%" : "49%"}} id={`AnswerType${item.id}`}>
+				<div className={`bg-white ${screenSize.dynamicWidth < 800 ? "" : ""}`} style={{width: screenSize.dynamicWidth < 800 ? "100%" : "49%"}} id={`AnswerType${indexItem}`}>
 					<select
 						id="testID"
 						defaultValue={item.questiontype2}
 						onChange={(e) => {
-							sectionsdata[index].questions[item.id].questiontype2 = e.target.value;
+							sectionsdata[index].questions[indexItem].questiontype2 = e.target.value;
 							setsectionsdata(sectionsdata);
 						}}
 						className="h-10 px-1 rounded-md border border-gray-200 outline-none "
@@ -931,7 +935,7 @@ function SurveyDetails() {
 													<option value="open">&#xf059; Open question</option>
 												</select>
 
-												{itemQuestions.questiontype === "rating" && <RatingAnswer item={itemQuestions} index={index} />}
+												{itemQuestions.questiontype === "rating" && <RatingAnswer item={itemQuestions}  indexItem={indexQ} index={index} />}
 												{itemQuestions.questiontype === "limited" && <AnswerTypeJSX item={itemQuestions} indexItem={indexQ} indexSect={index} />}
 											</div>
 										</div>
